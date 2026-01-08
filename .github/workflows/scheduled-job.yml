@@ -2,17 +2,27 @@ name: Scheduled Job
 
 on:
   schedule:
-    # Runs at 8:45 AM UTC every day
-    # Adjust the hour if you need a different timezone
-    # Format: minute hour day-of-month month day-of-week
+    # Check-in: 8:45 AM UTC every day
     - cron: '45 8 * * *'
+    # Check-out: 6:00 PM (18:00) UTC every day
+    - cron: '0 18 * * *'
   
   # Allow manual trigger for testing
   workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to run'
+        required: true
+        default: 'in'
+        type: choice
+        options:
+          - in
+          - out
 
 jobs:
-  run-script:
+  check-in:
     runs-on: ubuntu-latest
+    if: github.event.schedule == '45 8 * * *' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'in')
     
     steps:
       - name: Checkout repository
@@ -26,5 +36,24 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run scheduled script
-        run: npx tsx scripts/check-in.ts
+      - name: Run check-in
+        run: npx tsx scripts/check-attendance.ts in
+
+  check-out:
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 18 * * *' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'out')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run check-out
+        run: npx tsx scripts/check-attendance.ts out

@@ -1,6 +1,8 @@
 /**
- * Scheduled check-in script
- * This script runs every day at 8:45 AM via GitHub Actions
+ * Scheduled check-in/check-out script
+ * Usage: tsx scripts/check-attendance.ts [in|out]
+ *   - in:  check-in (typeOfButton = 1)
+ *   - out: check-out (typeOfButton = 2)
  */
 
 import 'dotenv/config';
@@ -8,6 +10,13 @@ import 'dotenv/config';
 const API_URL = process.env.API_URL!;
 const LONGITUDE = parseFloat(process.env.LONGITUDE!);
 const LATITUDE = parseFloat(process.env.LATITUDE!);
+
+type ActionType = 'in' | 'out';
+
+const TYPE_MAP: Record<ActionType, number> = {
+  in: 1,
+  out: 2,
+};
 
 function formatDateTime(date: Date): string {
   const pad = (n: number) => n.toString().padStart(2, '0');
@@ -22,18 +31,19 @@ function formatDateTime(date: Date): string {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-async function checkIn(): Promise<void> {
+async function checkInOut(action: ActionType): Promise<void> {
   const token = process.env.AUTH_TOKEN;
   
   if (!token) {
     throw new Error('AUTH_TOKEN environment variable is required');
   }
 
+  const typeOfButton = TYPE_MAP[action];
   const now = new Date();
   const dateToHitAButton = formatDateTime(now);
 
   const payload = {
-    typeOfButton: 1,
+    typeOfButton,
     dateToHitAButton,
     longtitude: LONGITUDE, // Note: API uses "longtitude" (typo in their API)
     latitude: LATITUDE,
@@ -58,22 +68,30 @@ async function checkIn(): Promise<void> {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Check-in failed: ${response.status} ${response.statusText} - ${errorText}`);
+    throw new Error(`Check-${action} failed: ${response.status} ${response.statusText} - ${errorText}`);
   }
 
   const result = await response.json();
-  console.log('✅ Check-in successful:', JSON.stringify(result, null, 2));
+  console.log(`✅ Check-${action} successful:`, JSON.stringify(result, null, 2));
 }
 
 async function main(): Promise<void> {
-  console.log('🚀 Check-in job started at:', new Date().toISOString());
+  const action = process.argv[2] as ActionType;
   
-  await checkIn();
+  if (!action || !['in', 'out'].includes(action)) {
+    console.error('Usage: tsx scripts/check-attendance.ts [in|out]');
+    process.exit(1);
+  }
+
+  console.log(`🚀 Check-${action} job started at:`, new Date().toISOString());
   
-  console.log('✅ Check-in job completed');
+  await checkInOut(action);
+  
+  console.log(`✅ Check-${action} job completed`);
 }
 
 main().catch((error: unknown) => {
-  console.error('❌ Check-in job failed:', error);
+  console.error('❌ Job failed:', error);
   process.exit(1);
 });
+

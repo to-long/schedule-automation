@@ -4,7 +4,8 @@
   "description": "Automated scheduled tasks via GitHub Actions",
   "type": "module",
   "scripts": {
-    "start": "tsx scripts/index.ts",
+    "check-in": "tsx scripts/check-attendance.ts in",
+    "check-out": "tsx scripts/check-attendance.ts out",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
