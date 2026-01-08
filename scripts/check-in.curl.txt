@@ -1,0 +1,64 @@
+curl 'https://d14znnyip8zkld.cloudfront.net/api/check_in_out/reg' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: en-US,en;q=0.9,ja;q=0.8' \
+  -H 'authorization: Bearer 90262|VlYfVhFstPX1bcaKWwz1hUvIJQbvTDjgotqQIiCb' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'origin: https://propel.vn' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://propel.vn/' \
+  -H 'sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' \
+  --data-raw '{"typeOfButton":1,"dateToHitAButton":"2026-01-08 09:03:26","longtitude":105.85263257121294,"latitude":20.97148857955816,"isAllowWrong":true}' ;
+curl 'https://d14znnyip8zkld.cloudfront.net/api/check_in_out/reg' \
+  -X 'OPTIONS' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-US,en;q=0.9,ja;q=0.8' \
+  -H 'access-control-request-headers: authorization,content-type' \
+  -H 'access-control-request-method: POST' \
+  -H 'cache-control: no-cache' \
+  -H 'origin: https://propel.vn' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://propel.vn/' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' ;
+curl 'https://d14znnyip8zkld.cloudfront.net/api/check_in_out/list?date=2026-01-08' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: en-US,en;q=0.9,ja;q=0.8' \
+  -H 'authorization: Bearer 90262|VlYfVhFstPX1bcaKWwz1hUvIJQbvTDjgotqQIiCb' \
+  -H 'cache-control: no-cache' \
+  -H 'origin: https://propel.vn' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://propel.vn/' \
+  -H 'sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' ;
+curl 'https://d14znnyip8zkld.cloudfront.net/api/check_in_out/list?date=2026-01-08' \
+  -X 'OPTIONS' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-US,en;q=0.9,ja;q=0.8' \
+  -H 'access-control-request-headers: authorization' \
+  -H 'access-control-request-method: GET' \
+  -H 'cache-control: no-cache' \
+  -H 'origin: https://propel.vn' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://propel.vn/' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36'

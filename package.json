@@ -1,0 +1,19 @@
+{
+  "name": "schedule-automation",
+  "version": "1.0.0",
+  "description": "Automated scheduled tasks via GitHub Actions",
+  "type": "module",
+  "scripts": {
+    "start": "tsx scripts/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "dotenv": "^16.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

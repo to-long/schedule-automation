@@ -1,0 +1,30 @@
+name: Scheduled Job
+
+on:
+  schedule:
+    # Runs at 8:45 AM UTC every day
+    # Adjust the hour if you need a different timezone
+    # Format: minute hour day-of-month month day-of-week
+    - cron: '45 8 * * *'
+  
+  # Allow manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run scheduled script
+        run: npx tsx scripts/check-in.ts
