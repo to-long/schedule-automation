@@ -1,0 +1,39 @@
+import dayjs from 'dayjs';
+import { API_URL, TIMEZONE } from './constants.js';
+import type { User, ActionType } from './types.js';
+
+export async function checkPropel(user: User, action: ActionType): Promise<void> {
+  const now = dayjs().tz(TIMEZONE);
+  const payload = {
+    typeOfButton: action === 'in' ? 1 : 2,
+    dateToHitAButton: now.format('YYYY-MM-DD HH:mm:ss'),
+    longtitude: user.lng,
+    latitude: user.lat,
+    isAllowWrong: true,
+  };
+
+  console.log(`\n👤 ${user.name}`);
+  console.log('📍 Location:', { lat: user.lat, lng: user.lng });
+  console.log('🕐 Timestamp:', payload.dateToHitAButton);
+
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json, text/plain, */*',
+      'authorization': `Bearer ${user.token}`,
+      'content-type': 'application/json',
+      'origin': 'https://propel.vn',
+      'referer': 'https://propel.vn/',
+      'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Check-${action} failed for ${user.name}: ${response.status} - ${errorText}`);
+  }
+
+  const result = await response.json();
+  console.log(`✅ Check-${action} successful:`, JSON.stringify(result, null, 2));
+}

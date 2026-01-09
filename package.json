@@ -4,7 +4,7 @@
   "description": "Automated scheduled tasks via GitHub Actions",
   "type": "module",
   "scripts": {
-    "check-attendance": "tsx scripts/check-attendance.ts",
+    "check-attendance": "tsx jobs/index.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],

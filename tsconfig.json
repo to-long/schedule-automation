@@ -13,7 +13,7 @@
     "declaration": true,
     "noEmit": true
   },
-  "include": ["scripts/**/*"],
+  "include": ["jobs/**/*"],
   "exclude": ["node_modules", "dist"]
 }
 
