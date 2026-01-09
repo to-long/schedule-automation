@@ -1,0 +1,19 @@
+fetch("https://andpadvietnam.slack.com/api/views.submit?_x_id=62950427-1767961539.544&_x_csid=r05VhgXPnvk&slack_route=T01TFF3HARL&_x_version_ts=1767953853&_x_frontend_build_type=current&_x_desktop_ia=4&_x_gantry=true&fp=87&_x_num_retries=0", {
+    "headers": {
+      "accept": "*/*",
+      "accept-language": "en-US,en;q=0.9,ja;q=0.8",
+      "cache-control": "no-cache",
+      "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryVSam1gwM0B5FOeEI",
+      "pragma": "no-cache",
+      "priority": "u=1, i",
+      "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"macOS\"",
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-site",
+      "cookie": "ssb_instance_id=0056dacf-336e-4f1b-ab37-5dcf464856c7; cjConsent=MHxOfDB8Tnww; cjUser=7296e8cd-afd5-4d61-af45-9e20b2b4435b; _lc2_fpi=e00b11ac9c9b--01k949n093ynd57qgz9zefasfn; _cs_c=0; _gcl_au=1.1.1003074672.1762154677; _ga=GA1.1.968965055.1762154677; b=.0610b50fb057dbc9a41b09bdcd5b8fc7; _fbp=fb.1.1762154746341.761978017463886288; __pdst=a14f72c3439942b08409b367dfa2841d; _ga=GA1.3.968965055.1762154677; d-s=1767689650; shown_ssb_redirect_page=1; utm=%7B%22utm_source%22%3A%22in-prod%22%2C%22utm_medium%22%3A%22inprod-btn_app_install-index-click%22%7D; PageCount=1; _li_dcdm_c=.slack.com; _lc2_fpi_js=e00b11ac9c9b--01k949n093ynd57qgz9zefasfn; _cs_cvars=%7B%7D; _cs_id=bcda66b6-1d43-adfc-a6cb-f279b575ee49.1762154676.5.1767879326.1767879326.1.1796318676727.1.x; _gid=GA1.3.979978327.1767879327; _li_ss=CjUKBgj3ARDRHAoFCAoQ0RwKBQgMENscCgYI9QEQ0RwKBgiiARDRHAoFCAsQ0RwKBgjSARDRHA; _ga_QTJQME5M5D=GS2.1.s1767879326$o5$g1$t1767879337$j58$l0$h0; x=0610b50fb057dbc9a41b09bdcd5b8fc7.1767961489; OptanonConsent=isGpcEnabled=0&datestamp=Fri+Jan+09+2026+19%3A24%3A50+GMT%2B0700+(Indochina+Time)&version=202402.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=5566ffa4-c19c-4987-bb7f-c0e2f8d4f165&interactionCount=1&isAnonUser=1&landingPath=NotLandingPage&groups=1%3A1%2C3%3A1%2C2%3A1%2C4%3A1&AwaitingReconsent=false; shown_download_ssb_modal=1; show_download_ssb_banner=1; no_download_ssb_banner=1; d=xoxd-uFXqqi7O6lFo%2FNRXqjPNy4XzqSzONI9fNnLu8uA6%2F8gdEUJ3B3LS8iBtNE9diIcqlj3Irn2EPWf1lsCfCdFKT14v257ZgBAGGhlzKLgCrEoT8W0NdqVSQKOG5zFUq0iu1sy3BORxoUPQDbfmU8Ld3NXTl9M72t7PtgcMQscGfzSK5v4390BBC4GVysrdw8KIoA5ZM67d0OkK0lVXCIdOCluc7Sf4; tz=420; web_cache_last_updateda0fc17f6fc5101f80f7439c6799cbe8e=1767961504364"
+    },
+    "body": "------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"token\"\r\n\r\nxoxc-1933513588870-9697713133766-9821850267715-3e8cc2d0ea77bba3d6e543ed9988d848dcc5d48fb952aaa85c3448774d07108d\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"client_token\"\r\n\r\nweb-1767961539544\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"view_id\"\r\n\r\nV0A7S888TUJ\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"state\"\r\n\r\n{\"values\":{\"BwtY\":{\"47731a1a-3b36-4e26-9e87-8c8518d8a153\":{\"type\":\"datepicker\",\"selected_date\":\"2026-01-08\"}},\"BJQEj\":{\"c1b8fe86-84b8-42d7-a069-4904c6c8dbe7\":{\"type\":\"plain_text_input\",\"value\":\"work\"}}}}\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"_x_reason\"\r\n\r\nsubmit-view\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"_x_mode\"\r\n\r\nonline\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"_x_sonic\"\r\n\r\ntrue\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI\r\nContent-Disposition: form-data; name=\"_x_app_name\"\r\n\r\nclient\r\n------WebKitFormBoundaryVSam1gwM0B5FOeEI--\r\n",
+    "method": "POST"
+  });

@@ -4,7 +4,8 @@
   "description": "Automated scheduled tasks via GitHub Actions",
   "type": "module",
   "scripts": {
-    "check-attendance": "tsx jobs/index.ts",
+    "propel-check": "tsx jobs/propel-check.ts",
+    "slack-checkin": "tsx jobs/slack-check.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],

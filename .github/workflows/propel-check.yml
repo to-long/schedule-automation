@@ -26,5 +26,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run attendance check
-        run: npm run check-attendance
+      - name: Run Propel check
+        run: npm run propel-check
