@@ -1,4 +1,4 @@
-name: Scheduled Job
+name: Propel Check
 
 on:
   schedule:

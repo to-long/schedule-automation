@@ -1,4 +1,4 @@
-name: Slack Check-in
+name: Slack Check
 
 on:
   schedule:
