@@ -5,10 +5,4 @@ export interface User {
   lng: number;
 }
 
-export interface SlackUser {
-  name: string;
-  token: string;
-  cookie: string;
-}
-
 export type ActionType = 'in' | 'out';

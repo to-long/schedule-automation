@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "propel-check": "tsx jobs/propel-check.ts",
-    "slack-checkin": "tsx jobs/slack-check.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
