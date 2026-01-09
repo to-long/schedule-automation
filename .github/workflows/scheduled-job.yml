@@ -2,10 +2,10 @@ name: Scheduled Job
 
 on:
   schedule:
-    # Check-in: 8:45 AM UTC every day
-    - cron: '45 8 * * *'
-    # Check-out: 6:00 PM (18:00) UTC every day
-    - cron: '0 18 * * *'
+    # Check-in: 8:45 AM UTC+7 (1:45 AM UTC)
+    - cron: '45 1 * * *'
+    # Check-out: 6:00 PM UTC+7 (11:00 AM UTC)
+    - cron: '0 11 * * *'
   
   # Allow manual trigger for testing
   workflow_dispatch:
