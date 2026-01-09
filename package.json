@@ -4,13 +4,15 @@
   "description": "Automated scheduled tasks via GitHub Actions",
   "type": "module",
   "scripts": {
-    "check-in": "tsx scripts/check-attendance.ts in",
-    "check-out": "tsx scripts/check-attendance.ts out",
+    "check-attendance": "tsx scripts/check-attendance.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "dayjs": "^1.11.19"
+  },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "dotenv": "^16.4.0",

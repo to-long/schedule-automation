@@ -1,63 +1,48 @@
 /**
  * Scheduled check-in/check-out script
- * Usage: tsx scripts/check-attendance.ts [in|out]
- *   - in:  check-in (typeOfButton = 1)
- *   - out: check-out (typeOfButton = 2)
+ * Auto-detects action based on GMT+7 time:
+ *   - Before 9AM: check-in
+ *   - After 6PM: check-out
  */
 
-import 'dotenv/config';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import { USERS, API_URL, TIMEZONE, type User } from './constants.js';
 
-const API_URL = process.env.API_URL!;
-const LONGITUDE = parseFloat(process.env.LONGITUDE!);
-const LATITUDE = parseFloat(process.env.LATITUDE!);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type ActionType = 'in' | 'out';
 
-const TYPE_MAP: Record<ActionType, number> = {
-  in: 1,
-  out: 2,
-};
-
-function formatDateTime(date: Date): string {
-  const pad = (n: number) => n.toString().padStart(2, '0');
+function detectAction(): ActionType {
+  const hour = dayjs().tz(TIMEZONE).hour();
   
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1);
-  const day = pad(date.getDate());
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  const seconds = pad(date.getSeconds());
+  if (hour < 9) return 'in';
+  if (hour >= 18) return 'out';
   
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  throw new Error(`Invalid time: ${hour}:00 GMT+7. Must be before 9AM or after 6PM.`);
 }
 
-async function checkInOut(action: ActionType): Promise<void> {
-  const token = process.env.AUTH_TOKEN;
-  
-  if (!token) {
-    throw new Error('AUTH_TOKEN environment variable is required');
-  }
-
-  const typeOfButton = TYPE_MAP[action];
-  const now = new Date();
-  const dateToHitAButton = formatDateTime(now);
-
+async function checkAttendance(user: User, action: ActionType): Promise<void> {
+  const now = dayjs().tz(TIMEZONE);
   const payload = {
-    typeOfButton,
-    dateToHitAButton,
-    longtitude: LONGITUDE, // Note: API uses "longtitude" (typo in their API)
-    latitude: LATITUDE,
+    typeOfButton: action === 'in' ? 1 : 2,
+    dateToHitAButton: now.format('YYYY-MM-DD HH:mm:ss'),
+    longtitude: user.lng,
+    latitude: user.lat,
     isAllowWrong: true,
   };
 
-  console.log('📍 Location:', { longitude: LONGITUDE, latitude: LATITUDE });
-  console.log('🕐 Timestamp:', dateToHitAButton);
+  console.log(`\n👤 ${user.name}`);
+  console.log('📍 Location:', { lat: user.lat, lng: user.lng });
+  console.log('🕐 Timestamp:', payload.dateToHitAButton);
 
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'accept': 'application/json, text/plain, */*',
-      'authorization': `Bearer ${token}`,
+      'authorization': `Bearer ${user.token}`,
       'content-type': 'application/json',
       'origin': 'https://propel.vn',
       'referer': 'https://propel.vn/',
@@ -68,7 +53,7 @@ async function checkInOut(action: ActionType): Promise<void> {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Check-${action} failed: ${response.status} ${response.statusText} - ${errorText}`);
+    throw new Error(`Check-${action} failed for ${user.name}: ${response.status} - ${errorText}`);
   }
 
   const result = await response.json();
@@ -76,22 +61,21 @@ async function checkInOut(action: ActionType): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  const action = process.argv[2] as ActionType;
+  const now = dayjs().tz(TIMEZONE);
+  console.log('🕐 Current time (GMT+7):', now.format('YYYY-MM-DD HH:mm:ss'));
   
-  if (!action || !['in', 'out'].includes(action)) {
-    console.error('Usage: tsx scripts/check-attendance.ts [in|out]');
-    process.exit(1);
+  const action = detectAction();
+  console.log(`🚀 Action: check-${action}`);
+  console.log(`👥 Processing ${USERS.length} user(s)...`);
+
+  for (const user of USERS) {
+    await checkAttendance(user, action);
   }
 
-  console.log(`🚀 Check-${action} job started at:`, new Date().toISOString());
-  
-  await checkInOut(action);
-  
-  console.log(`✅ Check-${action} job completed`);
+  console.log(`\n✅ All done!`);
 }
 
 main().catch((error: unknown) => {
   console.error('❌ Job failed:', error);
   process.exit(1);
 });
-
