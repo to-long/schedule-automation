@@ -16,11 +16,7 @@ dayjs.extend(timezone);
 
 function detectAction(): ActionType {
   const hour = dayjs().tz(TIMEZONE).hour();
-  
-  if (hour < 9) return 'in';
-  if (hour >= 18) return 'out';
-  
-  throw new Error(`Invalid time: ${hour}:00 GMT+7. Must be before 9AM or after 6PM.`);
+  return hour >= 18 ? 'out' : 'in';
 }
 
 async function checkPropel(user: User, action: ActionType): Promise<void> {
