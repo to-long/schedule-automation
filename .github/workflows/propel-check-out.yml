@@ -1,9 +1,7 @@
-name: Propel Check
+name: Propel Check Out
 
 on:
   schedule:
-    # Check-in: 8:00 AM GMT+7 (1:00 AM UTC), Mon-Fri only
-    - cron: '0 1 * * 1-5'
     # Check-out: 6:00 PM GMT+7 (11:00 AM UTC), Mon-Fri only
     - cron: '0 11 * * 1-5'
   
