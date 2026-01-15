@@ -2,8 +2,8 @@ name: Propel Check In
 
 on:
   schedule:
-    # Check-in: 7:00 AM GMT+7 (0:00 AM UTC), Mon-Fri only
-    - cron: '0 0 * * 1-5'
+    # Check-in: 5:00 AM GMT+7 (22:00 UTC previous day), Mon-Fri only
+    - cron: '0 22 * * 0-4'
   
   # Allow manual trigger for testing
   workflow_dispatch:
