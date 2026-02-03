@@ -63,11 +63,26 @@ async function main(): Promise<void> {
   console.log(`🚀 Action: check-${action}`);
   console.log(`👥 Processing ${USERS.length} user(s)...`);
 
+  let successCount = 0;
+  let failCount = 0;
+
   for (const user of USERS) {
-    await checkPropel(user, action);
+    try {
+      await checkPropel(user, action);
+      successCount++;
+    } catch (error) {
+      failCount++;
+      console.error(`❌ Failed for ${user.name}:`, error);
+    }
   }
 
-  console.log(`\n✅ All done!`);
+  console.log(`\n📊 Summary: ${successCount} succeeded, ${failCount} failed`);
+  
+  if (failCount > 0) {
+    process.exit(1);
+  }
+  
+  console.log(`✅ All done!`);
 }
 
 main().catch((error: unknown) => {
