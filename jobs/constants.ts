@@ -15,5 +15,13 @@ export const USERS: User[] = [
   }
 ];
 
+export const HOLIDAYS = [
+  '23/01/2026',
+  '24/01/2026',
+  '25/01/2026',
+  '26/01/2026',
+  '27/01/2026',  
+]
+
 export const API_URL = 'https://d14znnyip8zkld.cloudfront.net/api/check_in_out/reg';
 export const TIMEZONE = 'Asia/Ho_Chi_Minh';

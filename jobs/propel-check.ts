@@ -8,7 +8,7 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
-import { USERS, API_URL, TIMEZONE } from './constants.js';
+import { USERS, API_URL, TIMEZONE, HOLIDAYS } from './constants.js';
 import type { User, ActionType } from './types.js';
 
 dayjs.extend(utc);
@@ -57,6 +57,12 @@ async function checkPropel(user: User, action: ActionType): Promise<void> {
 
 async function main(): Promise<void> {
   const now = dayjs().tz(TIMEZONE);
+  
+  const todayStr = now.format('DD/MM/YYYY');
+  if (HOLIDAYS.includes(todayStr)) {
+    console.log(`🏖️ ${todayStr} is a holiday. Skipping check-in/out.`);
+    process.exit(0);
+  }
   console.log('🕐 Current time (GMT+7):', now.format('YYYY-MM-DD HH:mm:ss'));
   
   const action = detectAction();
