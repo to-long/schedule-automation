@@ -1,5 +1,5 @@
 export interface User {
-  name: string;
+  name: 'Long' | 'Nam';
   token: string;
   lat: number;
   lng: number;

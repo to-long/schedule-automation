@@ -8,7 +8,7 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
-import { USERS, API_URL, TIMEZONE, HOLIDAYS } from './constants.js';
+import { USERS, API_URL, TIMEZONE, HOLIDAYS, USER_HOLIDAYS } from './constants.js';
 import type { User, ActionType } from './types.js';
 
 dayjs.extend(utc);
@@ -73,6 +73,11 @@ async function main(): Promise<void> {
   let failCount = 0;
 
   for (const user of USERS) {
+    const userHolidays = USER_HOLIDAYS[user.name] ?? [];
+    if (userHolidays.includes(todayStr)) {
+      console.log(`\n🏖️ ${user.name} is on personal leave today (${todayStr}). Skipping.`);
+      continue;
+    }
     try {
       await checkPropel(user, action);
       successCount++;

@@ -20,8 +20,13 @@ export const HOLIDAYS = [
   '24/01/2026',
   '25/01/2026',
   '26/01/2026',
-  '27/01/2026',  
+  '27/01/2026',
 ]
+
+export const USER_HOLIDAYS: Record<User['name'], string[]> = {
+  'Nam': ['20/05/2026'],
+  'Long': [],
+}
 
 export const API_URL = 'https://d14znnyip8zkld.cloudfront.net/api/check_in_out/reg';
 export const TIMEZONE = 'Asia/Ho_Chi_Minh';
