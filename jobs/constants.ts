@@ -21,6 +21,9 @@ export const HOLIDAYS = [
   '25/01/2026',
   '26/01/2026',
   '27/01/2026',
+  '31/08/2026',
+  '01/09/2026',
+  '02/09/2026',
 ]
 
 export const USER_HOLIDAYS: Record<User['name'], string[]> = {
