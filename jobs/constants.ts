@@ -3,7 +3,7 @@ import type { User } from './types.js';
 export const USERS: User[] = [
   {
     name: 'Long',
-    token: '122035|ZgrGMqRWjRxA6xSMdhiGmZYrSOUgHVxFsUUVWE8s',
+    token: '133306|LhdQhAriqisCg8PIQWUEKYnClhcoS9z5PYah12ha',
     lat: 20.97148857955816,
     lng: 105.85263257121294,
   },
