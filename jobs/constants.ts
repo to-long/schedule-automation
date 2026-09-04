@@ -9,7 +9,7 @@ export const USERS: User[] = [
   },
   {
     name: 'Nam',
-    token: '143968|kvaUjBdux1i5aRlt7YWmlQoO3vnWSHzRhGsNLD0D',
+    token: '149144|ujMHJj9a7e2dXaMHrlpSKwLfwCcgVhi2B6E00tzV',
     lat: 105.8312632165888,
     lng: 21.02260493677713,
   }
