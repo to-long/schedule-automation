@@ -26,3 +26,8 @@ jobs:
 
       - name: Run Propel check
         run: npm run propel-check
+        env:
+          USERNAME_LONG: ${{ secrets.USERNAME_LONG }}
+          PASSWORD_LONG: ${{ secrets.PASSWORD_LONG }}
+          USERNAME_NAM: ${{ secrets.USERNAME_NAM }}
+          PASSWORD_NAM: ${{ secrets.PASSWORD_NAM }}

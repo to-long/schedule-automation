@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 import { USERS, API_URL, TIMEZONE, HOLIDAYS, USER_HOLIDAYS } from './constants.js';
+import { login, headers } from './auth.js';
 import type { User, ActionType } from './types.js';
 
 dayjs.extend(utc);
@@ -17,6 +18,14 @@ dayjs.extend(timezone);
 function detectAction(): ActionType {
   const hour = dayjs().tz(TIMEZONE).hour();
   return hour >= 18 ? 'out' : 'in';
+}
+
+function postCheck(token: string, payload: object): Promise<Response> {
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: headers(token),
+    body: JSON.stringify(payload),
+  });
 }
 
 async function checkPropel(user: User, action: ActionType): Promise<void> {
@@ -33,18 +42,17 @@ async function checkPropel(user: User, action: ActionType): Promise<void> {
   console.log('📍 Location:', { lat: user.lat, lng: user.lng });
   console.log('🕐 Timestamp:', payload.dateToHitAButton);
 
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'accept': 'application/json, text/plain, */*',
-      'authorization': `Bearer ${user.token}`,
-      'content-type': 'application/json',
-      'origin': 'https://propel.vn',
-      'referer': 'https://propel.vn/',
-      'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36',
-    },
-    body: JSON.stringify(payload),
-  });
+  let response = await postCheck(user.token, payload);
+
+  // Token in constants died → mint a fresh one via /login with secret credentials, retry once.
+  if (response.status === 401) {
+    if (!user.email || !user.password) {
+      throw new Error(`Token dead for ${user.name} (401) and no credentials to re-login`);
+    }
+    console.log('🔑 Token chết (401) — đăng nhập lại bằng credential...');
+    const freshToken = await login(user);
+    response = await postCheck(freshToken, payload);
+  }
 
   if (!response.ok) {
     const errorText = await response.text();
