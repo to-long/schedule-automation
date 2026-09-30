@@ -19,6 +19,7 @@ const USER_META = [
     token: '149144|ujMHJj9a7e2dXaMHrlpSKwLfwCcgVhi2B6E00tzV',
     lat: 21.02260493677713,
     lng: 105.8312632165888,
+    lastWorkingDay: '25/10/2026',
   },
 ] as const;
 
@@ -30,6 +31,7 @@ export const USERS: User[] = USER_META.map((m) => ({
   password: process.env[`PASSWORD_${m.prefix}`] ?? '',
   lat: m.lat,
   lng: m.lng,
+  lastWorkingDay: 'lastWorkingDay' in m ? m.lastWorkingDay : undefined,
 }));
 
 export const HOLIDAYS = [

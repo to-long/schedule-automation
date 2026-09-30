@@ -8,12 +8,14 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import { USERS, API_URL, TIMEZONE, HOLIDAYS, USER_HOLIDAYS } from './constants.js';
 import { login, headers } from './auth.js';
 import type { User, ActionType } from './types.js';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(customParseFormat);
 
 function detectAction(): ActionType {
   const hour = dayjs().tz(TIMEZONE).hour();
@@ -81,6 +83,10 @@ async function main(): Promise<void> {
   let failCount = 0;
 
   for (const user of USERS) {
+    if (user.lastWorkingDay && now.isAfter(dayjs.tz(user.lastWorkingDay, 'DD/MM/YYYY', TIMEZONE), 'day')) {
+      console.log(`\n🚪 ${user.name}'s last working day was ${user.lastWorkingDay}. Skipping.`);
+      continue;
+    }
     const userHolidays = USER_HOLIDAYS[user.name] ?? [];
     if (userHolidays.includes(todayStr)) {
       console.log(`\n🏖️ ${user.name} is on personal leave today (${todayStr}). Skipping.`);
